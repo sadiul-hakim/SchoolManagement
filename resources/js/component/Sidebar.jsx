@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -6,22 +7,25 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     const menu = [
         {
-            title: "Dashboard",
-            link: "/dashboard"
+            title: "Home",
+            link: "/",
+            icon:"bi bi-house-door fs-4 me-2"
         },
         {
             title: "Students",
             children: [
                 { title: "All Students", link: "/students" },
                 { title: "Add Student", link: "/students/create" }
-            ]
+            ],
+            icon:"bi bi-person fs-4 me-2"
         },
         {
             title: "Teachers",
             children: [
                 { title: "All Teachers", link: "/teachers" },
                 { title: "Add Teacher", link: "/teachers/create" }
-            ]
+            ],
+            icon:"bi bi-person fs-4 me-2"
         }
     ];
 
@@ -47,9 +51,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
             >
 
-                <h5>Logo</h5>
+                <h5 className="p-3">Logo</h5>
 
-                <ul className="nav flex-column">
+                <ul className="nav flex-column mt-4">
 
                     {menu.map((item, index) => (
 
@@ -57,9 +61,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
                             {/* Normal Link */}
                             {!item.children && (
-                                <a className="nav-link sidebar-link text-white">
-                                    {item.title}
-                                </a>
+                                <Link className="nav-link sidebar-link text-white" href={item.link}>
+                                    <i className={item.icon}></i> {item.title}
+                                </Link>
                             )}
 
                             {/* Menu With Submenu */}
@@ -67,13 +71,15 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
                                 <>
                                     <a
-                                        className="nav-link sidebar-link text-white d-flex justify-content-between"
+                                        className="nav-link sidebar-link text-white d-flex justify-content-between align-items-center"
                                         onClick={() =>
                                             setOpenMenu(openMenu === index ? null : index)
                                         }
                                         style={{ cursor: "pointer" }}
                                     >
-                                        {item.title}
+                                        <span className="d-flex align-items-center">
+                                            <i className={item.icon}></i> {item.title}
+                                        </span>
                                         <span>{openMenu === index ? "▾" : "▸"}</span>
                                     </a>
 
@@ -83,9 +89,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                             {item.children.map((sub, i) => (
                                                 <li key={i} className="nav-item">
 
-                                                    <a className="nav-link text-white-50 sidebar-sub">
-                                                        {sub.title}
-                                                    </a>
+                                                    <Link className="nav-link text-white-50 sidebar-sub" href={sub.link}>
+                                                        → {sub.title}
+                                                    </Link>
 
                                                 </li>
                                             ))}

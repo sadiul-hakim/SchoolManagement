@@ -1,11 +1,27 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Medium.ttf') format('woff2');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Bold.ttf') format('woff2');
+    font-weight: 700;
+}
+
+body {
+    font-family: 'Roboto', system-ui, sans-serif !important;
 }
 
 .sidebar-link {
