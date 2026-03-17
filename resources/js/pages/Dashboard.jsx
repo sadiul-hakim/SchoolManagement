@@ -5,7 +5,6 @@ import Sidebar from "../component/Sidebar";
 export default function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  console.log(sidebarOpen);
   return (
     <main className="bg-light min-vh-100">
 
