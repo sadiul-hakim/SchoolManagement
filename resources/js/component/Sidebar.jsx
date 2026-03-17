@@ -51,7 +51,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
             >
 
-                <h5 className="p-3">Logo</h5>
+                <img src="/images/logo.png" width="200" height="50" alt="logo" />
 
                 <ul className="nav flex-column mt-4">
 
