@@ -1,14 +1,13 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
+export default function Sidebar({ openedMenu,openedSubMenu, sidebarOpen, setSidebarOpen }) {
 
     const [openMenu, setOpenMenu] = useState(null);
-    const [selected, setSelected] = useState(null);
 
     const menu = [
         {
-            title: "Home",
+            title: "Dashboard",
             link: "/",
             icon: "bi bi-house-door me-2",
             roles: []
@@ -16,8 +15,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         {
             title: "Students",
             children: [
-                { title: "All Students", link: "/students" },
-                { title: "Add Student", link: "/students/create" }
+                { title: "Add New Student", link: "/students/create" },
+                { title: "Students List", link: "/students" },
+                { title: "Suspend Student", link: "/students/suspend" },
+                { title: "Student Categories", link: "/students/categories" },
+                { title: "Edit Student", link: "/students/edit" },
+                { title: "Student Details", link: "/students/details" }
             ],
             icon: "bi bi-person me-2",
             roles: []
@@ -25,45 +28,74 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         {
             title: "Teachers",
             children: [
-                { title: "All Teachers", link: "/teachers" },
-                { title: "Add Teacher", link: "/teachers/create" }
+                { title: "Add New Teacher", link: "/teachers/create" },
+                { title: "Teachers List ", link: "/teachers" },
+                { title: "Edit Teacher ", link: "/teachers/edit" },
+                { title: "Teacher Details", link: "/teachers/details" },
+                { title: "Teacher Timetable", link: "/teachers/timetable" },
             ],
             icon: "bi bi-person me-2",
             roles: []
         },
         {
             title: "Guardian",
-            link: "/guardians",
+            children: [
+                { title: "Add New Guardian", link: "/guardians/create" },
+                { title: "Guardians List", link: "/guardians" },
+                { title: "Edit Guardian", link: "/guardians/edit" },
+                { title: "Guardian Details", link: "/guardians/details" },
+            ],
             icon: "bi bi-people me-2",
             roles: []
         },
         {
             title: "Classes",
-            link: "/classes",
+            children: [
+                { title: "Section", link: "/classes/section" },
+                { title: "Subjects", link: "/classes/subjects" },
+                { title: "Class List", link: "/classes" },
+                { title: "Class Room", link: "/classes/room" },
+            ],
             icon: "bi bi-easel me-2",
             roles: []
         },
         {
             title: "Examinations",
-            link: "/exams",
+            children: [
+                { title: "Exam", link: "/exams" },
+                { title: "Exam Schedule", link: "/exams/schedule" },
+                { title: "Exam Result", link: "/exams/result" }
+            ],
             icon: "bi bi-file-earmark-text me-2",
             roles: []
         },
         {
             title: "Fees Collection",
-            link: "/fees",
+            children: [
+                { title: "Fees Collection", link: "/fees/collect" },
+                { title: "Fees Type", link: "/fees/type" },
+                { title: "Fees Group", link: "/fees/group" },
+                { title: "Fees Discount", link: "/fees/discount" },
+            ],
             icon: "bi bi-cash-stack me-2",
             roles: []
         },
         {
             title: "Attendance",
-            link: "/attendance",
+            children: [
+                { title: "Student Attendance", link: "/attendance/student" },
+                { title: "Teacher Attendance", link: "/attendance/teacher" },
+                { title: "Employee Attendance", link: "/attendance/employee" },
+            ],
             icon: "bi bi-calendar-check me-2",
             roles: []
         },
         {
             title: "Leaves",
-            link: "/leaves",
+            children: [
+                { title: "Leave Types", link: "/leaves/type" },
+                { title: "Leave Request", link: "/leaves/request" },
+            ],
             icon: "bi bi-clock-history me-2",
             roles: []
         },
@@ -75,19 +107,36 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
         {
             title: "Library",
-            link: "/library",
+            children: [
+                { title: "Books List", link: "/library/books" },
+                { title: "Members List", link: "/library/members" },
+                { title: "Member Details", link: "/library/members" },
+            ],
             icon: "bi bi-book me-2",
             roles: []
         },
         {
             title: "Accounts",
-            link: "/accounts",
+            children: [
+                { title: "Income Head", link: "/accounts/income-head" },
+                { title: "Income List", link: "/accounts/incomes" },
+                { title: "Expanse Head", link: "/accounts/expanse-head" },
+                { title: "Expanse List", link: "/accounts/expanses" },
+                { title: "Transaction", link: "/accounts/transactions" },
+            ],
             icon: "bi bi-wallet2 me-2",
             roles: []
         },
         {
             title: "HRM",
-            link: "/hrm",
+            children: [
+                { title: "Employee List", link: "/hrm/employees" },
+                { title: "Employee Details", link: "/hrm/employee-details" },
+                { title: "Add New Employee", link: "/hrm/employee/create" },
+                { title: "Payroll", link: "/hrm/payroll" },
+                { title: "Designation", link: "/hrm/designation" },
+                { title: "Department", link: "/hrm/department" },
+            ],
             icon: "bi bi-people-fill me-2",
             roles: []
         },
@@ -137,7 +186,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
         {
             title: "Settings",
-            link: "/settings",
+            children: [
+                { title: "General", link: "/settings/general" },
+                { title: "Notification", link: "/settings/notifications" },
+                { title: "Currencies", link: "/settings/currencies" }
+            ],
             icon: "bi bi-gear me-2",
             roles: []
         }
@@ -171,7 +224,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
                     {menu.map((item, index) => (
 
-                        <li key={index} className={`nav-item ${selected===item.title ? 'open' :''}`} onClick={()=>setSelected(item.title)}>
+                        <li key={index} className={`nav-item ${openedMenu === item.title ? 'openMenu' : ''}`}>
 
                             {/* Normal Link */}
                             {!item.children && (
@@ -204,7 +257,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                                 <li key={i} className="nav-item">
 
                                                     <Link className="nav-link text-white-50 sidebar-sub" href={sub.link}>
-                                                        → {sub.title}
+                                                        <span className={`${openedSubMenu===sub.title ? 'text-primary':''}`}>
+                                                            → {sub.title}
+                                                        </span>
                                                     </Link>
 
                                                 </li>

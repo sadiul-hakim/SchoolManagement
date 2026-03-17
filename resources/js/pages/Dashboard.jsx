@@ -11,6 +11,8 @@ export default function Dashboard() {
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
+        openedMenu="Dashboard"
+        openedSubMenu=""
       />
 
       <div className="content-area">
@@ -18,7 +20,7 @@ export default function Dashboard() {
         <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
         <div className="p-4">
-          Page content here
+          Dashboard Content Here
         </div>
 
       </div>
