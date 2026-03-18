@@ -31,7 +31,7 @@ export default function Login() {
                                 <input type="password" name="password" id="password" className="form-control"
                                  value={data.password} onChange={(e) => setData('password', e.target.value)} />
                             </div><br />
-                            <button className="btn btn-primary" type="submit">Login</button>
+                            <button className="btn btn-primary" type="submit" disabled={processing}>Login</button>
                         </form>
                     </div>
                 </div>

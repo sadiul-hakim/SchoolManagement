@@ -17,5 +17,5 @@ Route::middleware('auth')->group(function () {
 
 Route::inertia('/login', 'Login')->name('login');
 Route::controller(AuthController::class)->group(function () {
-    Route::post("/login", "login");
+    Route::post("/login", "login")->middleware("throttle:5,1");
 });
