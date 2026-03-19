@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-
-        $user = Auth::user();
-        return inertia('Dashboard', [
-            'user' => $user,
-            'profile' => $user->profile()
-        ]);
+        return inertia('Dashboard');
     })->name('dashboard');
     Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 });

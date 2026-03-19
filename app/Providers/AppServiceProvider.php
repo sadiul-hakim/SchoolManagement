@@ -28,10 +28,8 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
 
         Inertia::share([
-            'auth' => [
-                'user' => fn() => Auth::user(),
-                'role' => fn() => Auth::user()?->role,
-            ]
+            'role' => fn() => Auth::user()?->role,
+            'profile' => fn() => Auth::user()?->getProfile(),
         ]);
     }
 

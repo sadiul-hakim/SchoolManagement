@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 export default function Layout({children}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { props } = usePage();
+    console.log(props)
     return (
         <main className="bg-light min-vh-100">
 

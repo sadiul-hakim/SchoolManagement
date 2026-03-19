@@ -69,7 +69,7 @@ class User extends Authenticatable
     }
 
     // Helper to get profile dynamically
-    public function profile()
+    public function getProfile()
     {
         return match ($this->role) {
             'student' => $this->student,

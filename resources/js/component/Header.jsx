@@ -25,7 +25,7 @@ export default function Header({ toggleSidebar, serverProps }) {
             <div>
                 <div className="dropdown">
                     <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="bi bi-person-circle"></i> {serverProps.user ? serverProps.user.name : 'Action'}
+                        <i className="bi bi-person-circle"></i> {serverProps.auth.user ? serverProps.auth.user.name : 'Action'}
                     </button>
                     <ul className="dropdown-menu">
                         <li><a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={handleLogout}><i className="bi bi-box-arrow-left"></i> Logout</a></li>
