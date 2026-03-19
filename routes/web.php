@@ -13,6 +13,7 @@ Route::middleware('auth')->group(function () {
             'profile' => $user->profile()
         ]);
     })->name('dashboard');
+    Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 });
 
 Route::inertia('/login', 'Login')->name('login');

@@ -1,11 +1,10 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Sidebar({ openedMenu,openedSubMenu, sidebarOpen, setSidebarOpen }) {
+export default function Sidebar({ openedMenu,openedSubMenu, sidebarOpen, setSidebarOpen,serverProps }) {
 
     const [openMenu, setOpenMenu] = useState(null);
-    const {props} = usePage();
-    console.log(props);
+    
 
     const menu = [
         {
