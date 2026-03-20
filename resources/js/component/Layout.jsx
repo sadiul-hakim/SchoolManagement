@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-export default function Layout({ children }) {
+export default function Layout({ children, openedMenu, openedSubMenu }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { props } = usePage();
 
@@ -24,16 +24,16 @@ export default function Layout({ children }) {
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
-                openedMenu="Dashboard"
-                openedSubMenu=""
+                openedMenu={openedMenu ? openedMenu : 'Dashboard'}
+                openedSubMenu={openedSubMenu ? openedSubMenu : ''}
                 serverProps={props}
             />
 
-            <div className="content-area">
+            <div className="content-area d-flex flex-column flex-grow-1">
 
                 <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} serverProps={props} />
 
-                <div className="p-4">
+                <div className="p-4 flex-grow-1 overflow-aut">
                     {children}
                 </div>
 

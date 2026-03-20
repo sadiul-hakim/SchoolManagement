@@ -4,11 +4,11 @@ const Dashboard = function Dashboard() {
 
   return (
     <>
-    Dashboard Content Here
+      Dashboard Content Here
     </>
   );
 }
 
-Dashboard.layout = page => <Layout children={page}/>
+Dashboard.layout = page => <Layout children={page} openedMenu={'Dashboard'} openedSubMenu={''} />
 
 export default Dashboard;
