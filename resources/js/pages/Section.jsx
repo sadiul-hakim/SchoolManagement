@@ -1,6 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import Swal from 'sweetalert2';
 import Layout from '../component/Layout';
 
 const Section = function Section() {
@@ -60,10 +61,18 @@ const Section = function Section() {
     }, [search]);
 
     function handleDelete(id) {
-        if (!confirm('Are you sure you want to delete this section?')) return;
-
-        router.delete(`/sections/${id}`, {
-            preserveScroll: true,
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This section will be deleted permanently!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/sections/${id}`);
+            }
         });
     }
 

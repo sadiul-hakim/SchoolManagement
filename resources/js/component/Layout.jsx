@@ -1,6 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
@@ -8,15 +8,31 @@ export default function Layout({ children, openedMenu, openedSubMenu }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { props } = usePage();
 
-    useEffect(function () {
+    useEffect(() => {
         if (props.flash?.success) {
-            toast.success(props.flash.success, { id: 'success-toast' });
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: props.flash.success,
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
         }
 
         if (props.flash?.error) {
-            toast.error(props.flash.error, { id: 'error-toast' });
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: props.flash.error,
+                timer: 3000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
         }
-    }, [props.flash])
+    }, [props.flash]);
 
     return (
         <main className="bg-light min-vh-100">
@@ -38,8 +54,6 @@ export default function Layout({ children, openedMenu, openedSubMenu }) {
                 </div>
 
             </div>
-
-            <Toaster position="top-right" />
         </main>
     )
 }

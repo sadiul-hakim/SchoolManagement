@@ -70,7 +70,10 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
+        $name = $section->name;
+
         $section->delete();
-        return back()->with('success', 'Successfully deleted section ' . $section->name);
+
+        return back()->with('success', "Successfully deleted section {$name}");
     }
 }
