@@ -1,10 +1,17 @@
-import { Link, router, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
+import { Offcanvas } from 'bootstrap';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import Swal from 'sweetalert2';
 import Layout from '../component/Layout';
 
 const Section = function Section() {
+    const [mode, setMode] = useState('create');
+    const [currentId, setCurrentId] = useState(null);
+    const { data, setData, post, put, errors, processing, reset } = useForm({
+        name: '',
+        active: ''
+    });
     const { sections, filters } = usePage().props;
 
     const [search, setSearch] = useState(filters.search || '');
@@ -33,9 +40,12 @@ const Section = function Section() {
             name: 'Action',
             cell: row => (
                 <div className="d-flex gap-2">
-                    <Link href={`/sections/${row.id}/edit`} className="btn btn-sm btn-primary">
+                    <button
+                        className="btn btn-sm btn-primary"
+                        onClick={() => handleEdit(row)}
+                    >
                         Edit
-                    </Link>
+                    </button>
 
                     <button
                         className="btn btn-sm btn-danger"
@@ -76,6 +86,51 @@ const Section = function Section() {
         });
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (mode === 'create') {
+            post('/sections', {
+                onSuccess: () => handleSuccess()
+            });
+        } else {
+            put(`/sections/${currentId}`, {
+                onSuccess: () => handleSuccess()
+            });
+        }
+    }
+
+    function handleSuccess() {
+        reset();
+        setMode('create');
+        setCurrentId(null);
+        closeDrawer();
+    }
+
+    function handleEdit(section) {
+        setMode('edit');
+        setCurrentId(section.id);
+
+        setData({
+            name: section.name,
+            active: section.active
+        });
+
+        openDrawer();
+    }
+
+    function openDrawer() {
+        const drawer = document.getElementById('sectionDrawer');
+        const instance = Offcanvas.getOrCreateInstance(drawer);
+        instance.show();
+    }
+
+    function closeDrawer() {
+        const drawer = document.getElementById('sectionDrawer');
+        const instance = Offcanvas.getOrCreateInstance(drawer);
+        instance.hide();
+    }
+
     return (
         <>
             <div className="card card-body">
@@ -91,11 +146,59 @@ const Section = function Section() {
 
             <div className="p-4 card card-body mt-2">
 
-                {/* Search */}
+
                 <div className='row'>
+                    {/* Create Section */}
                     <div className="col-12 col-md-6">
-                        <button className="btn btn-primary">Add</button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => {
+                                reset();
+                                setMode('create');
+                                setCurrentId(null);
+                            }}
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#sectionDrawer"
+                        >
+                            Add
+                        </button>
+                        <div
+                            className="offcanvas offcanvas-end"
+                            tabIndex="-1"
+                            id="sectionDrawer"
+                        >
+                            <div className="offcanvas-header">
+                                <h5 className="offcanvas-title">
+                                    {mode === 'create' ? 'Create Section' : 'Update Section'}
+                                </h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+
+                            <div className="offcanvas-body">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Name</label>
+                                        <input type="text" className="form-control" value={data.name} onChange={(e) => setData('name', e.target.value)} />
+                                        {errors.name && <p className='my-2 text-danger'>{errors.name}</p>}
+                                    </div><br />
+                                    <div className="form-group">
+                                        <label htmlFor="status">Status</label>
+                                        <select className='form-control' value={data.active ?? ''}
+                                            onChange={(e) => setData('active', e.target.value === 'true')}>
+                                            <option value="">Select status</option>
+                                            <option value="true">Active</option>
+                                            <option value="false">Inactive</option>
+                                        </select>
+                                    </div><br />
+                                    <button className="btn btn-primary" disabled={processing}>
+                                        {mode === 'create' ? 'Create' : 'Update'}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+
+                    {/* Search */}
                     <div className="col-12 col-md-6">
                         <input
                             type="text"

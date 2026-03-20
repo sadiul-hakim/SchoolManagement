@@ -4,15 +4,23 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateSectionRequest extends FormRequest
 {
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'active' => $this->boolean('active'),
+        ]);
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->role === 'admin';
     }
 
     /**
@@ -23,7 +31,8 @@ class UpdateSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:20',
+            'active' => 'required|boolean'
         ];
     }
 }

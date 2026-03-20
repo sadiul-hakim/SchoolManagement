@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Section;
+use App\Policies\SectionPolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -12,6 +14,10 @@ use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Section::class => SectionPolicy::class
+    ];
+
     /**
      * Register any application services.
      */

@@ -45,7 +45,7 @@ class SectionPolicy
      */
     public function delete(User $user, Section $section): bool
     {
-        return false;
+        return $user->role === 'admin';
     }
 
     /**

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Section;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -38,7 +41,8 @@ class SectionController extends Controller
      */
     public function store(StoreSectionRequest $request)
     {
-        //
+        $section = Section::create($request->validated());
+        return back()->with('success', "Section {$section->name} is created successfully.");
     }
 
     /**
@@ -62,7 +66,8 @@ class SectionController extends Controller
      */
     public function update(UpdateSectionRequest $request, Section $section)
     {
-        //
+        $section->update($request->validated());
+        return back()->with('success', "Section {$section->name} is updated successfully.");
     }
 
     /**
@@ -70,10 +75,9 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
+        $this->authorize('delete', $section);
         $name = $section->name;
-
         $section->delete();
-
         return back()->with('success', "Successfully deleted section {$name}");
     }
 }
