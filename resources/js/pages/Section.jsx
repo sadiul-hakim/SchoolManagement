@@ -65,7 +65,7 @@ const Section = function Section() {
                 preserveState: true,
                 replace: true,
             });
-        }, 500);
+        }, 200);
 
         return () => clearTimeout(delay);
     }, [search]);
@@ -113,7 +113,7 @@ const Section = function Section() {
 
         setData({
             name: section.name,
-            active: section.active
+            active: section.active ? 'true' : 'false'
         });
 
         openDrawer();
@@ -134,7 +134,7 @@ const Section = function Section() {
     return (
         <>
             <div className="card card-body">
-                <h2 className='my-2'>Section</h2>
+                <h2 className='my-2'>Section Management</h2>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a>Classes</a></li>
@@ -145,7 +145,6 @@ const Section = function Section() {
             {/* Top Section Ends */}
 
             <div className="p-4 card card-body mt-2">
-
 
                 <div className='row'>
                     {/* Create Section */}
@@ -185,7 +184,7 @@ const Section = function Section() {
                                         <label htmlFor="status">Status</label>
                                         <select className='form-control' value={data.active ?? ''}
                                             onChange={(e) => setData('active', e.target.value === 'true')}>
-                                            <option value="">Select status</option>
+                                            <option value="">Select Status</option>
                                             <option value="true">Active</option>
                                             <option value="false">Inactive</option>
                                         </select>
