@@ -24,6 +24,9 @@ class ClassRoomController extends Controller
                 ->orWhere('capacity', $request->search);
         }
 
+        // sort by name (ascending)
+        $query->orderBy('number', 'asc');
+
         return inertia('ClassRoom', [
             'class_room' => $query->paginate(10)->withQueryString(),
             'filters' => $request->only(['search'])
@@ -45,6 +48,9 @@ class ClassRoomController extends Controller
     {
         $data = $request->validated();
         $room = ClassRoom::create($data);
+        Log::info('New Room has been created.', [
+            'number' => $room->number,
+        ]);
         return back()->with('success', 'Class Room No. ' . $room->number . ' has been added.');
     }
 

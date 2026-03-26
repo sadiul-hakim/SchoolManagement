@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SectionController extends Controller
 {
@@ -21,6 +22,9 @@ class SectionController extends Controller
         if ($request->search) {
             $query->where('name', 'like', "%{$request->search}%");
         }
+
+        // sort by name (ascending)
+        $query->orderBy('name', 'asc');
 
         return inertia('Section', [
             'sections' => $query->paginate(10)->withQueryString(),
@@ -42,6 +46,9 @@ class SectionController extends Controller
     public function store(StoreSectionRequest $request)
     {
         $section = Section::create($request->validated());
+        Log::info('New section has been created.', [
+            'name' => $section->name,
+        ]);
         return back()->with('success', "Section {$section->name} is created successfully.");
     }
 
@@ -76,7 +83,6 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         $this->authorize('delete', $section);
-
         if ($section->classes()->exists()) {
             return back()->with([
                 'error' => 'Cannot delete section. It is assigned to one or more classes.'
@@ -85,6 +91,9 @@ class SectionController extends Controller
 
         $name = $section->name;
         $section->delete();
+        Log::info('Section has been deleted.', [
+            'name' => $section->name,
+        ]);
         return back()->with('success', "Successfully deleted section {$name}");
     }
 }

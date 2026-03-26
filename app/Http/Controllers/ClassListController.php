@@ -24,6 +24,9 @@ class ClassListController extends Controller
             $query->where('name', 'like', "%{$request->search}%");
         }
 
+        // sort by name (ascending)
+        $query->orderBy('name', 'asc');
+
         return inertia('ClassList', [
             'sections' => Section::all(),
             'class_list' => $query->with('sections')->paginate(10)->withQueryString(),
@@ -45,6 +48,9 @@ class ClassListController extends Controller
     public function store(StoreClassListRequest $request)
     {
         $class = ClassList::create($request->only('name', 'active'));
+        Log::info('New Class has been created.', [
+            'name' => $class->name,
+        ]);
         $class->sections()->sync($request->sections);
         return back()->with('success', "Class {$class->name} is created successfully.");
     }
