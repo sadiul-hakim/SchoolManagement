@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -25,6 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if (method_exists($ex, 'getStatusCode')) {
                 $status = $ex->getStatusCode();
+            }
+
+            if ($status != 404) {
+                Log::error("{$status} :: {$ex->getMessage()}");
             }
 
             return Inertia::render('Error', [
