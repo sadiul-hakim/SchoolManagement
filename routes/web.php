@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassListController;
 use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('class_list', ClassListController::class);
     Route::resource('class_room', ClassRoomController::class);
     Route::resource('subjects', SubjectController::class);
+    Route::resource('teachers', TeacherController::class);
 
     Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 });

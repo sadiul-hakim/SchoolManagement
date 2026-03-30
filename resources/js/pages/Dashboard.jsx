@@ -1,6 +1,6 @@
 import Layout from '../component/Layout';
 
-const Dashboard = function Dashboard() {
+const Dashboard = function () {
 
   return (
     <>

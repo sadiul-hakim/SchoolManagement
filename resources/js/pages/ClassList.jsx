@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 import Swal from 'sweetalert2';
 import Layout from '../component/Layout';
 
-const ClassList = function ClassList() {
+const ClassList = function () {
 
     const [mode, setMode] = useState('create');
     const [currentId, setCurrentId] = useState(null);

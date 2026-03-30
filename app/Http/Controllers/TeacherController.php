@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
+use App\Models\Subject;
+use Inertia\Inertia;
 
 class TeacherController extends Controller
 {
@@ -13,7 +15,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Teacher');
     }
 
     /**
@@ -21,7 +23,10 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        $subjects = Subject::all();
+        return Inertia::render('AddTeacher', [
+            'subjects' => $subjects
+        ]);
     }
 
     /**

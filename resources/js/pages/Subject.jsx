@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import Layout from '../component/Layout';
 
 
-const Subject = function Subject() {
+const Subject = function () {
     const [mode, setMode] = useState('create');
     const [currentId, setCurrentId] = useState(null);
     const { data, setData, post, put, errors, processing, reset } = useForm({

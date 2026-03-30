@@ -36,7 +36,7 @@ export default function Layout({ children, openedMenu, openedSubMenu }) {
     }, [props.flash]);
 
     return (
-        <main className="bg-light min-vh-100">
+        <main className="bg-light vh-100 d-flex overflow-hidden">
 
             <Sidebar
                 sidebarOpen={sidebarOpen}
@@ -50,7 +50,7 @@ export default function Layout({ children, openedMenu, openedSubMenu }) {
 
                 <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} serverProps={props} />
 
-                <div className="p-4 flex-grow-1 overflow-aut">
+                <div className="p-4 flex-grow-1 overflow-auto">
                     {children}
                 </div>
 

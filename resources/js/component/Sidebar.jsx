@@ -30,7 +30,7 @@ export default function Sidebar({ openedMenu, openedSubMenu, sidebarOpen, setSid
             title: "Teachers",
             children: [
                 { title: "Add New Teacher", link: "/teachers/create" },
-                { title: "Teachers List ", link: "/teachers" },
+                { title: "Teachers List", link: "/teachers" },
                 { title: "Edit Teacher ", link: "/teachers/edit" },
                 { title: "Teacher Details", link: "/teachers/details" },
                 { title: "Teacher Timetable", link: "/teachers/timetable" },
